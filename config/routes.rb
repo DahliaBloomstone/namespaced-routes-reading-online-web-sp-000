@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  resources :authors, only: %i[show index] do
-    resources :posts, only: %i[show index new edit]
+
+  resources :artists do
+    resources :songs, only: [:index, :show]
   end
 
-  resources :posts, only: %i[index show new create edit update]
+  resources :songs
 
-  get '/admin/stats', to: 'stats#index'
+  namespace :admin do
+    resources :preferences, only: [:index]
+  end
 
-  root 'posts#index'
 end
